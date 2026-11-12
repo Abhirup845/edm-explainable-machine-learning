@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 import shap
 import matplotlib.pyplot as plt
 
@@ -10,7 +11,10 @@ from xgboost import XGBRegressor
 # 1. Load dataset
 # -----------------------------------------
 
-df = pd.read_csv("EDM_dataset_262_samples.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_PATH = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
+
+df = pd.read_csv(CSV_PATH)
 
 
 # -----------------------------------------
