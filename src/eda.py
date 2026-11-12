@@ -1,7 +1,12 @@
 import pandas as pd
+from pathlib import Path
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the EDM dataset
-df = pd.read_csv("EDM_dataset_262_samples.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_PATH = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
+df = pd.read_csv(CSV_PATH)
 
 # Basic information
 print("Dataset shape:", df.shape)
