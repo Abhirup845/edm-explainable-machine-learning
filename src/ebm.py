@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -10,7 +11,10 @@ from interpret.glassbox import ExplainableBoostingRegressor
 # 1. Load dataset
 # -----------------------------------------
 
-df = pd.read_csv("EDM_dataset_262_samples.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_PATH = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
+
+df = pd.read_csv(CSV_PATH)
 
 
 # -----------------------------------------
