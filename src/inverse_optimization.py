@@ -3,12 +3,17 @@ import itertools
 import math
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from interpret.glassbox import ExplainableBoostingRegressor
 
 # --------------------------------------------------
 # 1. Load the EDM dataset
 # --------------------------------------------------
-CSV_FILE = "EDM_dataset_262_samples.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+CSV_FILE = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
+
+df = pd.read_csv(CSV_FILE)
 
 FEATURES = [
     "Ip_A",
