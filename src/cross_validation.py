@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
@@ -14,7 +15,9 @@ from interpret.glassbox import ExplainableBoostingRegressor
 # 1. Load dataset
 # -----------------------------------------
 
-df = pd.read_csv("EDM_dataset_262_samples.csv")
+BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_PATH = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
+df = pd.read_csv(CSV_PATH)
 
 
 # -----------------------------------------
@@ -135,49 +138,44 @@ for fold, (train_index, test_index) in enumerate(
 
 
  # -------------------------------------
-# EBM WITHOUT interactions
-# -------------------------------------
+    # -------------------------------------
+    # EBM WITHOUT interactions
+    # -------------------------------------
 
-ebm_no_interactions = ExplainableBoostingRegressor(
-    interactions=0,
-    random_state=42
-)
+    ebm_no_interactions = ExplainableBoostingRegressor(
+        interactions=0,
+        random_state=42
+    )
 
-ebm_no_interactions.fit(X_train, y_train)
+    ebm_no_interactions.fit(X_train, y_train)
 
-pred = ebm_no_interactions.predict(X_test)
+    pred = ebm_no_interactions.predict(X_test)
 
-r2 = r2_score(y_test, pred)
+    r2 = r2_score(y_test, pred)
 
-results["EBM (No Interactions)"].append(r2)
+    results["EBM (No Interactions)"].append(r2)
 
-print(
-    "EBM (No Interactions) R²:",
-    round(r2, 4)
-)
+    print("EBM (No Interactions) R²:", round(r2, 4))
 
 
-# -------------------------------------
-# EBM WITH interactions
-# -------------------------------------
+    # -------------------------------------
+    # EBM WITH interactions
+    # -------------------------------------
 
-ebm_interactions = ExplainableBoostingRegressor(
-    interactions=5,
-    random_state=42
-)
+    ebm_interactions = ExplainableBoostingRegressor(
+        interactions=5,
+        random_state=42
+    )
 
-ebm_interactions.fit(X_train, y_train)
+    ebm_interactions.fit(X_train, y_train)
 
-pred = ebm_interactions.predict(X_test)
+    pred = ebm_interactions.predict(X_test)
 
-r2 = r2_score(y_test, pred)
+    r2 = r2_score(y_test, pred)
 
-results["EBM (With Interactions)"].append(r2)
+    results["EBM (With Interactions)"].append(r2)
 
-print(
-    "EBM (With Interactions) R²:",
-    round(r2, 4)
-)
+    print("EBM (With Interactions) R²:", round(r2, 4))
 
 # -----------------------------------------
 # 6. Final results
