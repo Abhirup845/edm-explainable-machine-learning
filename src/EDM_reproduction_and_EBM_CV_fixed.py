@@ -9,7 +9,11 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from xgboost import XGBRegressor
 from interpret.glassbox import ExplainableBoostingRegressor
 
-CSV_PATH = "EDM_dataset_262_samples.csv"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+CSV_PATH = BASE_DIR / "data" / "EDM_dataset_262_samples.csv"
 FEATURES = ["Ip_A", "Vg_V", "Ton_us", "Toff_us", "Flushing_Pressure_kgf_cm2"]
 TARGET = "SR_um"
 
@@ -60,5 +64,11 @@ for model_name, interactions in [("EBM interactions=0", 0), ("EBM interactions=5
     cv_rows.append({"Model":model_name, "Fold_R2":fold_r2,
                     "Mean_R2":np.mean(fold_r2), "SD_R2_population":np.std(fold_r2,ddof=0),
                     "Mean_MAE":np.mean(fold_mae), "Mean_RMSE":np.mean(fold_rmse)})
-pd.DataFrame(cv_rows).to_csv("EBM_5fold_CV_results.csv", index=False)
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+pd.DataFrame(cv_rows).to_csv(
+    RESULTS_DIR / "EBM_5fold_CV_results.csv",
+    index=False
+)
 print("\\nSaved EBM_5fold_CV_results.csv")
