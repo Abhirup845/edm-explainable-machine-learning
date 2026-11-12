@@ -194,4 +194,44 @@ for model, scores in results.items():
     print("Fold R²:", [round(x, 4) for x in scores])
     print("Mean R²:", round(mean_r2, 4))
     print("Std R² :", round(std_r2, 4))
+
+
+    # -----------------------------------------
+# 7. Save cross-validation results
+# -----------------------------------------
+
+RESULTS_DIR = BASE_DIR / "results"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+# Save individual fold scores
+fold_results = pd.DataFrame({
+    "Fold": [1, 2, 3, 4, 5],
+    "Linear Regression": results["Linear Regression"],
+    "Random Forest": results["Random Forest"],
+    "XGBoost": results["XGBoost"],
+    "EBM (No Interactions)": results["EBM (No Interactions)"],
+    "EBM (With Interactions)": results["EBM (With Interactions)"]
+})
+
+fold_results.to_csv(
+    RESULTS_DIR / "Cross_Validation_Fold_Results.csv",
+    index=False
+)
+
+# Save summary statistics
+summary_results = pd.DataFrame([
+    {
+        "Model": model,
+        "Mean R2": np.mean(scores),
+        "Std R2": np.std(scores)
+    }
+    for model, scores in results.items()
+])
+
+summary_results.to_csv(
+    RESULTS_DIR / "Cross_Validation_Summary.csv",
+    index=False
+)
+
+print("\nCross-validation CSV files saved successfully!")
     
