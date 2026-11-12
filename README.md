@@ -124,6 +124,34 @@ pip install -r requirements.txt
 - SHAP
 - SciPy
 
+
+## Results and Visualizations
+
+### 1. Distribution of Surface Roughness
+
+The histogram illustrates the distribution of surface roughness values across the 262 EDM experimental observations.
+
+![Surface Roughness Distribution](figures/Figure_1.png)
+
+### 2. Correlation Analysis
+
+The correlation matrix illustrates the relationships between machining parameters and EDM responses. Peak current shows a positive correlation with both surface roughness (0.74) and out-of-roundness (0.86).
+
+![Correlation Matrix](figures/Figure_2.png)
+
+### 3. SHAP Explainability Analysis
+
+SHAP summary analysis highlights the influence of EDM process parameters on predicted surface roughness. Peak current shows the largest overall feature impact, followed by pulse-on time and pulse-off time.
+
+![SHAP Summary Plot](figures/Figure_3.png)
+
+### 4. Explainable Boosting Machine (EBM)
+
+The EBM feature and interaction importance plot illustrates the relative contributions of individual machining parameters and selected feature interactions.
+
+![EBM Feature Importance](figures/Figure_4.png)
+
+
 ## Author
 
 **Abhirup Das**
